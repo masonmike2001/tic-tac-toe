@@ -12,9 +12,9 @@ const gameBoard = (() => {
     };
     const checkArray = (array, player) => {
         //check horiz
-        for (i = 0; i < 9; i + 3)
+        for (i = 0; i < 9; i += 3)
         {
-            if (array[i] === player.symbol, array[i + 1] === player.symbol , array[i + 2] === player.symbol)
+            if (array[i] === player.symbol && array[i + 1] === player.symbol  &&  array[i + 2] === player.symbol)
             {
                 displayController.displayGameEnd(player);
             }
@@ -22,20 +22,32 @@ const gameBoard = (() => {
         //check vert
         for (i = 0; i < 3; i++)
         {
-            if (array[i] === player.symbol, array[i + 3] === player.symbol , array[i + 6] === player.symbol)
+            if (array[i] === player.symbol  &&  array[i + 3] === player.symbol  &&  array[i + 6] === player.symbol)
             {
                 displayController.displayGameEnd(player);
             }
         }
         //check diag
-            if (array[0] === player.symbol, array[4] === player.symbol , array[8] === player.symbol)
+            if (array[0] === player.symbol  &&  array[4] === player.symbol  &&  array[8] === player.symbol)
             {
                 displayController.displayGameEnd(player);
             }
-            else if (array[2] === player.symbol, array[4] === player.symbol , array[6] === player.symbol)
+            else if (array[2] === player.symbol  &&  array[4] === player.symbol  &&  array[6] === player.symbol)
             {
-                displayController.displayGameEnd(player);
+                (document.querySelector('#instructions')).textContent = "It's a draw!";
             }
+        for (i = 0; i < 9; i++)
+        {
+            let freeSpaces = false;
+            if (array[i] === null)
+            {
+                freeSpaces = true;
+            }
+        }
+        if (freeSpaces === false)
+        {
+            displayController.displayGameEnd('draw')
+        }
         };
     return {
         createArray,
@@ -47,6 +59,10 @@ const gameBoard = (() => {
 const displayController = (() => {
     const setUpGame = (e) => {
         player1 = player('Player1', 'x', 'player'); //Player
+        (document.querySelectorAll('.btn'))[0].id = 'hidden';
+        (document.querySelectorAll('.btn'))[1].id = 'hidden';
+        document.querySelector('.row').setAttribute('style', 'margin-top: -60px');
+
         displayController.reloadDisplay();
         if (e.target.textContent === 'Vs. Player')
         {
@@ -56,7 +72,6 @@ const displayController = (() => {
         {
             player2 = player('Player2', 'o', 'ai'); //AI or 2nd player
         }
-        
     };
     
     const reloadDisplay = () => {
@@ -77,8 +92,8 @@ const displayController = (() => {
             boardIsSetUp = true;
             gridBoxes = grid.querySelectorAll(".grid-box");
             displayController.createTurnGetter(gridBoxes);
+            (document.querySelector('#instructions')).textContent = "Player 1, it's your turn!";
         }
-        
         else
         //updates the boxes with text
         {
@@ -96,7 +111,6 @@ const displayController = (() => {
                     else{
                         gridSymbol = gridBoxes[i].querySelector('h1');
                     }
-
                     gridSymbol.textContent = 'o';
                 }
                 else if (boardArray[i] === 'x')
@@ -111,7 +125,6 @@ const displayController = (() => {
                         gridSymbol = gridBoxes[i].querySelector('h1');
                     }
                     gridSymbol.textContent = 'x';
-
                 }
             }
         }
@@ -127,6 +140,9 @@ const displayController = (() => {
                 if (currentPlayer % 2 != 0 && boardArray[index] === null)
                 {
                     player1.markTile(index);
+                    (document.querySelector('#instructions')).textContent = "Player 2, it's your turn!";
+                    gameBoard.checkArray(boardArray, player1);
+
                 }
                 else if (currentPlayer % 2 === 0 && boardArray[index] === null)
                 {
@@ -137,14 +153,34 @@ const displayController = (() => {
                         //index = ?
                     }
                     player2.markTile(index);
+                    (document.querySelector('#instructions')).textContent = "Player 1, it's your turn!";
+                    gameBoard.checkArray(boardArray, player2);
+
                 }
             });
     }
     };
+    const displayGameEnd = (player) => {
+
+        if (player.name === "Player1")
+        {
+            (document.querySelector('#instructions')).textContent = "Player 1 Wins! Congratulations!";
+        }
+        else
+        {
+            (document.querySelector('#instructions')).textContent = "Player 2 Wins! Congratulations!";
+        }
+        //break the event listeners
+        //grey out the tic tac toe board
+         //unhide the restart button
+        (document.querySelector('.restart')).id = 'visible';
+    };
+
     return {
         setUpGame,
         reloadDisplay,
-        createTurnGetter
+        createTurnGetter,
+        displayGameEnd
     };
 })();
 
@@ -180,4 +216,3 @@ buttons[0].addEventListener('click', displayController.setUpGame);
 buttons[1].addEventListener('click', displayController.setUpGame);
 
 //add differences between buttons, by editing player2 value
-buttons[2].addEventListener('click', displayController.restartGame);

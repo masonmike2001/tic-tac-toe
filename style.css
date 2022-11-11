@@ -5,7 +5,7 @@ body {
 
 #tic-tac-toe {
     display: grid;
-    grid-template: repeat(3, 125px) / repeat(3, 125px);
+    grid-template: repeat(3, 225px) / repeat(3, 225px);
     gap: 5px;
     background-color: black;
     margin: auto;
@@ -16,8 +16,8 @@ body {
 
 .grid-box {
     background-color: blue;
-    width: 125px;
-    height: 125px;
+    width: 225px;
+    height: 225px;
     border-radius: 10px;
 }
 
@@ -32,8 +32,25 @@ body {
 
 .grid-symbol {
     color: white;
-    font-size:5.5rem;
+    font-size: 250px;
     display: block;
     margin: auto;
-    margin-top:  10px;
+    margin-top: -16px;
+
 }
+
+.btn {
+    padding: 20px;
+    margin: 10px;
+    margin-top: 0px; 
+}
+
+#hidden {
+    visibility: hidden;
+    margin-bottom: -35px;
+}
+
+#visible {
+    visibility: visible;
+}
+
