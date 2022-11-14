@@ -11,6 +11,7 @@ const gameBoard = (() => {
         }
     };
     const checkArray = (array, player) => {
+        let freeSpaces = false;
         //check horiz
         for (i = 0; i < 9; i += 3)
         {
@@ -34,11 +35,10 @@ const gameBoard = (() => {
             }
             else if (array[2] === player.symbol  &&  array[4] === player.symbol  &&  array[6] === player.symbol)
             {
-                (document.querySelector('#instructions')).textContent = "It's a draw!";
+                displayController.displayGameEnd(player);
             }
         for (i = 0; i < 9; i++)
         {
-            let freeSpaces = false;
             if (array[i] === null)
             {
                 freeSpaces = true;
@@ -161,8 +161,11 @@ const displayController = (() => {
     }
     };
     const displayGameEnd = (player) => {
-
-        if (player.name === "Player1")
+        if (player === 'draw')
+        {
+            (document.querySelector('#instructions')).textContent = "It's a draw!";
+        }
+        else if (player.name === "Player1")
         {
             (document.querySelector('#instructions')).textContent = "Player 1 Wins! Congratulations!";
         }
