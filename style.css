@@ -1,11 +1,25 @@
 body {
-    margin: auto;
+    margin: auto ;
     text-align: center;
+    background-color: rgb(46, 50, 54);
+    color: ghostwhite;
+    font-family: 'Roboto', sans-serif;
+}
+
+#header {
+    background-color: rgb(74, 18, 143);
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+}
+
+h1 {
+    margin: 0;
+    padding-top: 10px;
 }
 
 #tic-tac-toe {
     display: grid;
-    grid-template: repeat(3, 225px) / repeat(3, 225px);
+    grid-template: repeat(3, 180px) / repeat(3, 180px);
     gap: 5px;
     background-color: black;
     margin: auto;
@@ -16,12 +30,12 @@ body {
 
 .grid-box {
     background-color: blue;
-    width: 225px;
-    height: 225px;
+    width: 180px;
+    height: 180px;
     border-radius: 10px;
 }
 
-.grid-box:hover {
+.grid-box:hover, .btn:hover {
     cursor: pointer;
     background-color: cyan;
 }
@@ -35,13 +49,16 @@ body {
     font-size: 250px;
     display: block;
     margin: auto;
-    margin-top: -16px;
+    margin-top: -80px;
 
 }
 
 .btn {
     padding: 20px;
+    background-color: rgba(0, 255, 255, 0.556);
     margin: 10px;
+    border-radius: 10px;
+    border: none;
     margin-top: 0px; 
 }
 
