@@ -59,6 +59,10 @@ const gameBoard = (() => {
 const displayController = (() => {
     const setUpGame = (e) => {
         player1 = player(prompt("Player 1, please enter your name:"), 'x', 'player'); //Player
+        while (player1.name.length === 0)
+        {
+            player1.name = prompt("Player 1, please enter your name:");
+        }
         (document.querySelectorAll('.btn'))[0].id = 'hidden';
         (document.querySelectorAll('.btn'))[1].id = 'hidden';
         document.querySelector('.row').setAttribute('style', 'margin-top: -60px');
@@ -67,6 +71,10 @@ const displayController = (() => {
         if (e.target.textContent === 'Vs. Player')
         {
             player2 = player(prompt("Player 2, please enter your name:"), 'o', 'player'); //AI or 2nd player
+            while (player2.name.length === 0)
+            {
+                player2.name = prompt("Player 2, please enter your name:");
+            }
         }
         else
         {
@@ -136,6 +144,10 @@ const displayController = (() => {
         gridBoxes[i].addEventListener(
             'click',
             function(e){
+                if (gameIsOver === true)
+                {
+                    return;
+                }
                 let index = (e.target.id);
                 if (currentPlayer % 2 != 0 && boardArray[index] === null)
                 {
@@ -161,6 +173,7 @@ const displayController = (() => {
     }
     };
     const displayGameEnd = (player) => {
+        gameIsOver = true;
         if (player === 'draw')
         {
             (document.querySelector('#instructions')).textContent = "It's a draw!";
@@ -210,7 +223,7 @@ const player = (name, symbol, type) => {
 };
 
 let player1, player2;
-let currentPlayer = 1;
+let currentPlayer = 1, gameIsOver = false;
 let boardArray = gameBoard.createArray();
 let boardIsSetUp = false;
 
