@@ -1,0 +1,31 @@
+body {
+    margin: auto;
+    text-align: center;
+}
+
+#tic-tac-toe {
+    display: grid;
+    grid-template: repeat(3, 125px) / repeat(3, 125px);
+    gap: 5px;
+    background-color: black;
+    margin: auto;
+    width: max-content;
+    border-radius: 13px;
+    border: ghostwhite solid 2px;
+}
+
+.grid-box {
+    background-color: blue;
+    width: 125px;
+    height: 125px;
+    border-radius: 10px;
+}
+
+.grid-box:hover {
+    cursor: pointer;
+    background-color: cyan;
+}
+
+.row {
+    margin: auto;
+}
