@@ -58,7 +58,7 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     const setUpGame = (e) => {
-        player1 = player('Player1', 'x', 'player'); //Player
+        player1 = player(prompt("Player 1, please enter your name:"), 'x', 'player'); //Player
         (document.querySelectorAll('.btn'))[0].id = 'hidden';
         (document.querySelectorAll('.btn'))[1].id = 'hidden';
         document.querySelector('.row').setAttribute('style', 'margin-top: -60px');
@@ -66,7 +66,7 @@ const displayController = (() => {
         displayController.reloadDisplay();
         if (e.target.textContent === 'Vs. Player')
         {
-            player2 = player('Player2', 'o', 'player'); //AI or 2nd player
+            player2 = player(prompt("Player 2, please enter your name:"), 'o', 'player'); //AI or 2nd player
         }
         else
         {
@@ -92,7 +92,7 @@ const displayController = (() => {
             boardIsSetUp = true;
             gridBoxes = grid.querySelectorAll(".grid-box");
             displayController.createTurnGetter(gridBoxes);
-            (document.querySelector('#instructions')).textContent = "Player 1, it's your turn!";
+            (document.querySelector('#instructions')).textContent = player1.name + ", it's your turn!";
         }
         else
         //updates the boxes with text
@@ -140,7 +140,7 @@ const displayController = (() => {
                 if (currentPlayer % 2 != 0 && boardArray[index] === null)
                 {
                     player1.markTile(index);
-                    (document.querySelector('#instructions')).textContent = "Player 2, it's your turn!";
+                    (document.querySelector('#instructions')).textContent = player2.name + ", it's your turn!";
                     gameBoard.checkArray(boardArray, player1);
 
                 }
@@ -153,7 +153,7 @@ const displayController = (() => {
                         //index = ?
                     }
                     player2.markTile(index);
-                    (document.querySelector('#instructions')).textContent = "Player 1, it's your turn!";
+                    (document.querySelector('#instructions')).textContent = player1.name + ", it's your turn!";
                     gameBoard.checkArray(boardArray, player2);
 
                 }
@@ -167,11 +167,11 @@ const displayController = (() => {
         }
         else if (player.name === "Player1")
         {
-            (document.querySelector('#instructions')).textContent = "Player 1 Wins! Congratulations!";
+            (document.querySelector('#instructions')).textContent = player1.name + " wins! Congratulations!";
         }
         else
         {
-            (document.querySelector('#instructions')).textContent = "Player 2 Wins! Congratulations!";
+            (document.querySelector('#instructions')).textContent = player2.name + " wins! Congratulations!";
         }
         //break the event listeners
         //grey out the tic tac toe board
